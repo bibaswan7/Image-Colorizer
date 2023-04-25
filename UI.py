@@ -20,10 +20,11 @@ my_upload = st.sidebar.file_uploader("Upload an image", type=["png", "jpg", "jpe
 if my_upload is not None:
     col1.write("Original Image :camera:")
     img = Image.open(my_upload)
+    w, h = img.size
     imgGray = img.convert('L')
     col1.image(imgGray)
     pred_img = pred(my_upload)
     col2.write("Colorized Image :wrench:")
-    col2.image(pred_img)
+    col2.image(cv2.resize(pred_img, (w,h), interpolation = cv2.INTER_AREA))
 
 st.sidebar.markdown("\n")
